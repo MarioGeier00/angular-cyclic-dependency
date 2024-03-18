@@ -1,17 +1,26 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import {A} from "./typescript/a";
+import {B} from "./typescript/b";
+import {ComponentModule} from './component/same-file';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ComponentModule],
   template: `
-    <h1>Welcome to {{title}}!</h1>
-
-    <router-outlet />
+    <app-a />
   `,
   styles: [],
 })
 export class AppComponent {
-  title = 'angular-cyclic-dependencies';
+
+  constructor() {
+
+    const a = new A();
+    a.b = new B();
+
+    // const aService = inject(AService);
+  }
+
 }
